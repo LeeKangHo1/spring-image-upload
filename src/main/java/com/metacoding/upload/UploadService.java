@@ -18,8 +18,8 @@ public class UploadService {
     @Transactional
     public void v1사진저장(UploadRequest.V1DTO v1DTO) {
         // 1. DTO에 사진파일명을 롤링 시킨다.
-//        String imgName = UUID.randomUUID() + "_" + v1DTO.getImg().getOriginalFilename();
-        String imgName = v1DTO.getImg().getOriginalFilename();
+        String imgName = UUID.randomUUID() + "_" + v1DTO.getImg().getOriginalFilename();
+//        String imgName = v1DTO.getImg().getOriginalFilename();
         // 윈도우는 경로 \ 쓰지만 Paths객체가 알아서 바꿔줌
         String profileUrl = "images/" + imgName;
         String dbUrl = "/upload/" + imgName;
