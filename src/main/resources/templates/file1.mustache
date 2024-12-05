@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <h1>사진 파일 전송</h1>
+    <hr>
+    <form action="/v1/upload" method="post" enctype="multipart/form-data">
+        <input type="text" name="username"> <br>
+        <input type="file" name="img"> <br>
+        <button type="submit">전송</button>
+    </form>
+</body>
+</html>
