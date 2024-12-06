@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>사진 파일 전송</h1>
+    <h1>사진 파일 전송 JSON</h1>
     <hr>
     <form>
         <input type="text" id="username"> <br>
@@ -23,16 +23,16 @@
             // console.log("file", file);
 
             let reader = new FileReader();
-            // FileReader 안에 onload() 함수가 있다. 이 매개변수에 함수를 넣으라는 말
+            // FileReader 안에 onload() 함수가 있다. onload 이벤트가 발생할 때 실행될 함수를 정의하는 것입니다.
             reader.onload = () => { // 이 함수는 잠깐 스킵
                 // alert("사진 꽉참"); // 용량이 클 경우 천천히 뜬다.
                 let username = document.querySelector("#username").value;
                 let base64String = reader.result; // Base64 데이터 추출
-                console.log("Base64 String:", base64String); // 로고로 확인
+                // console.log("Base64 String:", base64String); // 로그로 확인
 
                 myUpload(username, base64String);
             }
-            // file이 다 로드 되면 onload가 실행.
+            // file을 비동기적으로 읽고 완료되면 reader.onload 이벤트가 발생하여 콜백 함수를 실행합니다.
             reader.readAsDataURL(file);
         });
 
@@ -54,12 +54,10 @@
                 });
 
                 let responseBody = await response.json();
-
-                if (requestBody.success) {
+                if (responseBody.success) {
                     location.href="/";
                 }
             }
-
     </script>
 </body>
 </html>

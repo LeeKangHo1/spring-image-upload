@@ -14,7 +14,7 @@ public class UploadRequest {
 
         public Upload toEntity(String profileUrl) {
             Upload upload = Upload.builder()
-                    .username(this.username)
+                    .username(username)
                     .profileUrl(profileUrl)
                     .build();
             return upload;
@@ -28,7 +28,7 @@ public class UploadRequest {
 
         public Upload toEntity(String profileUrl) {
             Upload upload = Upload.builder()
-                    .username(this.username)
+                    .username(username)
                     .profileUrl(profileUrl)
                     .build();
             return upload;

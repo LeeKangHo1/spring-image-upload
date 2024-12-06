@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @RequiredArgsConstructor
 @Controller
@@ -42,9 +43,11 @@ public class UploadController {
 
     @PostMapping("/v2/upload")
     public ResponseEntity<?> v2upload(@RequestBody UploadRequest.V2DTO v2DTO) {
+        // 반환값을 Resp<?> 로 하면 @ResponseBody 달아야 해서 불편
+
         uploadService.v2사진저장(v2DTO);
         Resp resp = new Resp(true, "성공", null);
-        return ResponseEntity.ok(resp);
+        return ResponseEntity.ok(resp); // 자동으로 JSON으로 변환해서 보낸다.
     }
 
     // form 태그 이용
@@ -53,5 +56,13 @@ public class UploadController {
         Upload upload = uploadService.사진보기();
         model.addAttribute("model", upload);
         return "file1-check";
+    }
+
+    // file1-check 재활용
+    @GetMapping("/file2-check")
+    public String file2Check(Model model) {
+        Upload upload = uploadService.사진보기();
+        model.addAttribute("model", upload);
+        return "file2-check";
     }
 }

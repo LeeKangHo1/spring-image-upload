@@ -21,17 +21,15 @@ public class UploadService {
         uploadRepository.save(v1DTO.toEntity(dbUrl));
     }
 
-    // 이미지 1개만 올리고 확인 가능
+    // 이미지 1개만 올렸을 때 확인 가능
     public Upload 사진보기() {
         return uploadRepository.findById(1);
     }
 
     @Transactional
     public void v2사진저장(UploadRequest.V2DTO v2DTO) {
-        // DB에 username이랑 profileUrl 저장
-//        String base64Data = v2DTO.getImg();
-//
-//        uploadRepository.save(v2DTO.toEntity(profileUrl));
-
+        // DB에 username이랑 dbUrl 저장
+        String dbUrl = MyFileUtil.fileSave(v2DTO.getImg());
+        uploadRepository.save(v2DTO.toEntity(dbUrl));
     }
 }
