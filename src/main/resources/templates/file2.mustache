@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <h1>사진 파일 전송</h1>
+    <hr>
+    <form>
+        <input type="text" id="username"> <br>
+        <input type="file" id="img"> <br>
+        <button type="button">전송</button>
+    </form>
+
+    <script>
+        let imgInput = document.querySelector("#img");
+        imgInput.addEventListener("change", (e) => {
+            // console.log("이벤트 발생함");
+            // console.log("e", e); // 이벤트 발생을 로고로 확인
+            let file = imgInput.files[0]; // files[0]은 내부적으로 비동기. 일단 껍데기부터 제공
+            // console.log("file", file);
+
+            let reader = new FileReader();
+            // FileReader 안에 onload() 함수가 있다. 이 매개변수에 함수를 넣으라는 말
+            reader.onload = () => { // 이 함수는 잠깐 스킵
+                // alert("사진 꽉참"); // 용량이 클 경우 천천히 뜬다.
+                let username = document.querySelector("#username").value;
+                let base64String = reader.result; // Base64 데이터 추출
+                console.log("Base64 String:", base64String); // 로고로 확인
+
+                myUpload(username, base64String);
+            }
+            // file이 다 로드 되면 onload가 실행.
+            reader.readAsDataURL(file);
+        });
+
+            async function myUpload(username, img) {
+                let user = {
+                    username: username,
+                    img: img
+                };
+
+                let requestBody = JSON.stringify(user);
+                // console.log(requestBody); // JSON 문자열 확인
+
+                let response = await fetch("/v2/upload", {
+                    method: "post",
+                    body: requestBody,
+                    headers: {
+                        "Content-Type":"application/json; charset=utf-8"
+                    }
+                });
+
+                let responseBody = await response.json();
+
+                if (requestBody.success) {
+                    location.href="/";
+                }
+            }
+
+    </script>
+</body>
+</html>

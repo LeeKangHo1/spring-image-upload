@@ -8,6 +8,20 @@ import java.nio.file.Path;
 public class UploadRequest {
 
     @Data
+    public static class V2DTO {
+        private String username;
+        private String img;
+
+        public Upload toEntity(String profileUrl) {
+            Upload upload = Upload.builder()
+                    .username(this.username)
+                    .profileUrl(profileUrl)
+                    .build();
+            return upload;
+        }
+    }
+
+    @Data
     public static class V1DTO {
         private String username;
         private MultipartFile img;
